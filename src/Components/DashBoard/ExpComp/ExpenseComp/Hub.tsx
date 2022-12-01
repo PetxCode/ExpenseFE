@@ -12,6 +12,7 @@ interface iHub {
   _id?: string;
   name?: string;
   staff?: string;
+  hubToken?: string;
 }
 
 const Hub: React.FC = () => {
@@ -55,15 +56,26 @@ const Hub: React.FC = () => {
               <HubName>{props.name}</HubName>
               <HubStaff>
                 {" "}
-                <strong>Staff:</strong>{" "}
+                <strong style={{ marginRight: "5px" }}>Staff:</strong>{" "}
                 {props.staff ? (
                   <div>{props.staff}</div>
                 ) : (
-                  <div style={{ fontSize: "12px" }}>No staff assigned yet!</div>
+                  <div style={{ fontSize: "12px", marginTop: "3px" }}>
+                    No staff assigned yet!
+                  </div>
                 )}
+                <br />
+              </HubStaff>
+
+              <HubStaff>
+                {" "}
+                <strong style={{ marginRight: "5px" }}>Hub Token:</strong>{" "}
+                {props.hubToken}
+                <br />
               </HubStaff>
               <br />
               <br />
+
               <button
                 onClick={() => {
                   ToggleStaff();
@@ -186,6 +198,10 @@ const HubsCard = styled.div`
 const HubName = styled.div`
   font-weight: 800;
   font-size: 24px;
+  margin-bottom: 20px;
+`;
+const HubStaff = styled.div`
+  display: flex;
+  align-items: center;
   margin-bottom: 10px;
 `;
-const HubStaff = styled.div``;

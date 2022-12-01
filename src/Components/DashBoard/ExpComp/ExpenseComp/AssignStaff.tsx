@@ -33,9 +33,13 @@ const AssignStaff: React.FC<Iprops> = ({ ToggleStaff, getID }) => {
   const [readStaff, setReadStaff] = useState([] as iStaff[]);
 
   const naviage = useNavigate();
+
   const [loading, setLoading] = useState(false);
+  const [val, setVal] = useState<string>("");
+
   const user = useRecoilValue(userDecode);
   const yupSchema = yup.object().shape({
+    // userName: val,
     userName: yup.string().required("This field has to be filled"),
   });
 
@@ -120,9 +124,10 @@ const AssignStaff: React.FC<Iprops> = ({ ToggleStaff, getID }) => {
                 <Hold>
                   <Input
                     placeholder="Enter name of your staff"
+                    value={val}
                     {...register("userName")}
                   />
-                  {/* <button>Search</button> */}
+
                   <Error>
                     {errors.userName && "user name isn't in your payroll"}
                   </Error>
@@ -131,7 +136,14 @@ const AssignStaff: React.FC<Iprops> = ({ ToggleStaff, getID }) => {
 
                 {readStaff.map((props) => (
                   <DropItem bg="" key={props._id}>
-                    {/* <input type="radio" id="item1" value="Issace success" /> */}
+                    <input
+                      type="radio"
+                      id="item1"
+                      value={val}
+                      onChange={() => {
+                        setVal(props.userName);
+                      }}
+                    />
                     <Label htmlFor="subscribeNews">
                       <DivCan>
                         <ImaCan src={props.userImage} />
@@ -172,6 +184,7 @@ const Error = styled.div`
 `;
 
 const Input = styled.input`
+  font-family: Poppins;
   ::placeholder {
     font-family: Poppins;
   }
