@@ -275,13 +275,15 @@ const LineChart: React.FC = () => {
     }
 
     setNewSales([
-      { day: "Monday", cost: monday },
-      { day: "Tuesday", cost: tuesday },
-      { day: "Wednesday", cost: wednesday },
-      { day: "Thursday", cost: thursday },
-      { day: "Friday", cost: friday },
-      { day: "Saturday", cost: saturday },
-      { day: "Sunday", cost: sunday },
+      setRecordData([
+        { day: "Monday", cost: monday },
+        { day: "Tuesday", cost: tuesday },
+        { day: "Wednesday", cost: wednesday },
+        { day: "Thursday", cost: thursday },
+        { day: "Friday", cost: friday },
+        { day: "Saturday", cost: saturday },
+        { day: "Sunday", cost: sunday },
+      ]),
     ]);
   }, []);
 
