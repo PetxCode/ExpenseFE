@@ -14,6 +14,7 @@ interface iSales {
   item?: string;
   status?: string;
   cost?: number;
+  props?: any;
 }
 
 interface DecodeData {
@@ -60,6 +61,12 @@ export const salesReport = atom({
 
 export const totalReport = atom({
   key: "totalReport",
+  default: [] as Array<iSales> | null,
+  effects_UNSTABLE: [persistAtom],
+});
+
+export const totalSaleReport = atom({
+  key: "totalSaleReport",
   default: [] as Array<iSales> | null,
   effects_UNSTABLE: [persistAtom],
 });

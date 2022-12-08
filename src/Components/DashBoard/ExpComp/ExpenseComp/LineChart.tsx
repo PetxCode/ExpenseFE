@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import axios from "axios";
-import { userDecode } from "../../../Global/GlobalState";
-import { useRecoilValue } from "recoil";
+import { totalSaleReport, userDecode } from "../../../Global/GlobalState";
+import { useRecoilState, useRecoilValue } from "recoil";
 import numeral from "numeral";
 
 const url = "https://event-3p90.onrender.com";
@@ -22,6 +22,9 @@ interface iData {
 
 const LineChart: React.FC = () => {
   const user = useRecoilValue(userDecode);
+  const [newSales, setNewSales] = useRecoilState(totalSaleReport);
+  // const [newSales, setNewSales] = useState([] as {}[]);
+  // const [newMySales, setNewMySales] = useRecoilState(totalSaleReport);
 
   const sortedSales = (props: any) => {
     return (a: any, b: any) => {
@@ -65,7 +68,7 @@ const LineChart: React.FC = () => {
   };
 
   const getAllDated = async () => {
-    let data = Object.values(groupBy(sales, "dated"));
+    let data: number[] | 0 = Object.values(groupBy(sales, "dated"));
     setSalesDated(
       data
         .map((el: any) => el.profit)
@@ -76,93 +79,107 @@ const LineChart: React.FC = () => {
   };
 
   const mondayValue = () => {
-    setMonday(
-      groupBy(sales, "dated")
-        .Monday // .flat()
-        .map((props: any) => {
-          return props.profit;
-        })
-        .reduce((a: number, b: number) => {
-          return a + b;
-        })
-    );
+    if (sales.length > 0) {
+      setMonday(
+        groupBy(sales, "dated")
+          .Monday // .flat()
+          .map((props: any) => {
+            return props.profit;
+          })
+          .reduce((a: number, b: number) => {
+            return a + b;
+          })
+      );
+    }
   };
 
   const tuesdayValue = () => {
-    setTuesday(
-      groupBy(sales, "dated")
-        .Tuesday // .flat()
-        .map((props: any) => {
-          return props.profit;
-        })
-        .reduce((a: number, b: number) => {
-          return a + b;
-        })
-    );
+    if (sales.length > 0) {
+      setTuesday(
+        groupBy(sales, "dated")
+          .Tuesday // .flat()
+          .map((props: any) => {
+            return props.profit;
+          })
+          .reduce((a: number, b: number) => {
+            return a + b;
+          })
+      );
+    }
   };
 
   const wednesdayValue = () => {
-    setWednesday(
-      groupBy(sales, "dated")
-        .Wednesday // .flat()
-        .map((props: any) => {
-          return props.profit;
-        })
-        .reduce((a: number, b: number) => {
-          return a + b;
-        })
-    );
+    if (sales.length > 0) {
+      setWednesday(
+        groupBy(sales, "dated")
+          .Wednesday // .flat()
+          .map((props: any) => {
+            return props.profit;
+          })
+          .reduce((a: number, b: number) => {
+            return a + b;
+          })
+      );
+    }
   };
 
   const thursdayValue = () => {
-    setThursday(
-      groupBy(sales, "dated")
-        .Thursday // .flat()
-        .map((props: any) => {
-          return props.profit;
-        })
-        .reduce((a: number, b: number) => {
-          return a + b;
-        })
-    );
+    if (sales.length > 0) {
+      setThursday(
+        groupBy(sales, "dated")
+          .Thursday // .flat()
+          .map((props: any) => {
+            return props.profit;
+          })
+          .reduce((a: number, b: number) => {
+            return a + b;
+          })
+      );
+    }
   };
 
   const fridayValue = () => {
-    setFriday(
-      groupBy(sales, "dated")
-        .Friday // .flat()
-        .map((props: any) => {
-          return props.profit;
-        })
-        .reduce((a: number, b: number) => {
-          return a + b;
-        })
-    );
+    if (sales.length > 0) {
+      setFriday(
+        groupBy(sales, "dated")
+          .Friday // .flat()
+          .map((props: any) => {
+            return props.profit;
+          })
+          .reduce((a: number, b: number) => {
+            return a + b;
+          })
+      );
+    }
   };
 
   const saturdayValue = () => {
-    setSaturday(
-      groupBy(sales, "dated")
-        .Saturday // .flat()
-        .map((props: any) => {
-          return props.profit;
-        })
-        .reduce((a: number, b: number) => {
-          return a + b;
-        })
-    );
+    if (sales.length > 0) {
+      setSaturday(
+        groupBy(sales, "dated")
+          .Saturday // .flat()
+          .map((props: any) => {
+            return props.profit;
+          })
+          .reduce((a: number, b: number) => {
+            return a + b;
+          })
+      );
+    }
   };
   const sundayValue = () => {
-    setSunday(
-      groupBy(sales, "dated")
-        .Sunday // .flat()
-        .map((props: any) => {
-          return props.profit;
-        })
-        .reduce((a: number, b: number) => {
-          return a + b;
-        })
-    );
+    if (sales.length > 0) {
+      setSunday(
+        groupBy(sales, "dated")
+          .Sunday // .flat()
+          .map((props: any) => {
+            return props.profit;
+          })
+          .reduce((a: number, b: number) => {
+            return a + b;
+          })
+      );
+    }
   };
 
   const createdArray = () => {
@@ -210,11 +227,54 @@ const LineChart: React.FC = () => {
   };
 
   useEffect(() => {
+    // const newURL = `${url}/api/sales/${user._id}/record`;
+    // axios.patch(newURL).then((res) => {
+    //   setSales(res.data.data.salesRecord.sort(sortedSales("profit")));
+    // });
+
     getAllDated();
     getAll();
     getDays();
     createdArray();
-    setRecordData([
+
+    // mondayValue();
+    // tuesdayValue();
+    // wednesdayValue();
+    // thursdayValue();
+    // fridayValue();
+    // saturdayValue();
+    // saturdayValue();
+    // sundayValue();
+
+    if (monday !== 0) {
+      mondayValue();
+    }
+
+    if (tuesday !== 0) {
+      tuesdayValue();
+    }
+
+    if (wednesday !== 0) {
+      wednesdayValue();
+    }
+
+    if (thursday !== 0) {
+      thursdayValue();
+    }
+
+    if (friday !== 0) {
+      fridayValue();
+    }
+
+    if (saturday !== 0) {
+      saturdayValue();
+    }
+
+    if (sunday !== 0) {
+      sundayValue();
+    }
+
+    setNewSales([
       { day: "Monday", cost: monday },
       { day: "Tuesday", cost: tuesday },
       { day: "Wednesday", cost: wednesday },
@@ -225,10 +285,15 @@ const LineChart: React.FC = () => {
     ]);
   }, []);
 
-  console.log("showing: ", recordData);
+  console.log(monday, tuesday, wednesday, thursday);
+  // console.log("state: ", newSales);
+  // console.log("record: ", recordData);
+  // console.log("sales: ", sales);
+  // console.log(dated);
+
   return (
     <Holder>
-      {recordData.map((props, i) => (
+      {newSales.map((props: any, i: number) => (
         <div key={i}>
           <Container>
             <div style={{ fontSize: "10px" }}>
